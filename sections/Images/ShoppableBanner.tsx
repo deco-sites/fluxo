@@ -73,7 +73,7 @@ const DEFAULT_PROPS: Props = {
 };
 
 export default function ShoppableBanner(props: Props) {
-  const { link, text, title, image, pins } = { ...DEFAULT_PROPS, ...props };
+  const { link, text, title, image } = { ...DEFAULT_PROPS, ...props };
 
   return (
     <div class="container">
@@ -101,7 +101,8 @@ export default function ShoppableBanner(props: Props) {
               loading="lazy"
             />
           </Picture>
-          {pins?.map(({ mobile, desktop, link, label }) => (
+          {
+            /* {pins?.map(({ mobile, desktop, link, label }) => (
             <>
               <a
                 href={link}
@@ -124,7 +125,8 @@ export default function ShoppableBanner(props: Props) {
                 <span>{label}</span>
               </a>
             </>
-          ))}
+          ))} */
+          }
         </figure>
         <div class="flex flex-col justify-center gap-6 py-20 px-8 bg-neutral-content">
           <h2 class={`card-title flex ${title?.layout?.position}`}>

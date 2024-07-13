@@ -3,10 +3,8 @@ import type { SiteNavigationElement } from "apps/commerce/types.ts";
 import Image from "apps/website/components/Image.tsx";
 import { useDevice } from "deco/hooks/useDevice.ts";
 import { useSection } from "deco/hooks/useSection.ts";
-import Alert from "../../components/header/Alert.tsx";
 import Bag from "../../components/header/Bag.tsx";
 import Menu from "../../components/header/Menu.tsx";
-import NavItem from "../../components/header/NavItem.tsx";
 import SignIn from "../../components/header/SignIn.tsx";
 import Searchbar, {
   type SearchbarProps,
@@ -56,7 +54,7 @@ export interface SectionProps {
 type Props = Omit<SectionProps, "alert" | "variant">;
 
 const Desktop = (
-  { navItems, logo, searchbar }: Props,
+  { logo, searchbar }: Props,
 ) => (
   <>
     <Modal id={SEARCHBAR_POPUP_ID}>
@@ -68,40 +66,31 @@ const Desktop = (
       </div>
     </Modal>
 
-    <div class="flex flex-col gap-4 pt-5 container border-b border-gray-300">
-      <div class="grid grid-cols-3 place-items-center">
-        <div class="place-self-start">
-          <a href="/" aria-label="Store logo">
-            <Image
-              src={logo.src}
-              alt={logo.alt}
-              width={logo.width || 100}
-              height={logo.height || 23}
-            />
-          </a>
-        </div>
-
-        <label
-          for={SEARCHBAR_POPUP_ID}
-          class="input input-bordered flex items-center gap-2 w-full"
+    <div class="flex flex-col gap-4 pt-5 container">
+      <div class="flex flex-row justify-center items-center">
+        <div
+          class="border-2 px-6 py-4 rounded-full border-white flex items-center justify-between gap-2 w-full mx-12"
           aria-label="search icon button"
         >
-          <Icon id="search" />
-          <span class="text-base-300 truncate">
-            Search products, brands...
-          </span>
-        </label>
-
-        <div class="flex gap-4 place-self-end">
-          <SignIn variant="desktop" />
-          <Bag />
+          <Image
+            src={logo.src}
+            alt={logo.alt}
+            width={logo.width || 60}
+            height={logo.height || 12}
+          />
+          <div class="flex gap-4 place-self-end color-white">
+            <SignIn variant="desktop" />
+            <Bag />
+          </div>
         </div>
       </div>
 
       <div class="flex justify-between items-center text-base-300">
-        <ul class="flex">
+        {
+          /*         <ul class="flex">
           {navItems?.slice(0, 4).map((item) => <NavItem item={item} />)}
-        </ul>
+        </ul> */
+        }
         <div>
           {/* ship to */}
         </div>
@@ -189,7 +178,6 @@ const Mobile = ({ logo, searchbar }: Props) => (
 );
 
 function Header({
-  alerts = [],
   logo = {
     src:
       "https://ozksgdmyrqcxcwhnbepg.supabase.co/storage/v1/object/public/assets/2291/986b61d4-3847-4867-93c8-b550cb459cc7",
@@ -207,10 +195,11 @@ function Header({
         height: device === "desktop"
           ? HEADER_HEIGHT_DESKTOP
           : HEADER_HEIGHT_MOBILE,
+        position: "fixed",
       }}
     >
-      <div class="bg-base-100 fixed w-full z-40">
-        {alerts.length > 0 && <Alert alerts={alerts} />}
+      <div class="fixed w-full z-40">
+        {/* {alerts.length > 0 && <Alert alerts={alerts} />} */}
         {device === "desktop"
           ? <Desktop logo={logo} {...props} />
           : <Mobile logo={logo} {...props} />}

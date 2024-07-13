@@ -1,10 +1,8 @@
 import type { ImageWidget } from "apps/admin/widgets.ts";
-import { Picture, Source } from "apps/website/components/Picture.tsx";
 import Icon from "../../components/ui/Icon.tsx";
 import Slider from "../../components/ui/Slider.tsx";
 import { clx } from "../../sdk/clx.ts";
 import { useId } from "../../sdk/useId.ts";
-import { useSendEvent } from "../../sdk/useSendEvent.ts";
 
 /**
  * @titleBy alt
@@ -46,84 +44,7 @@ export interface Props {
   interval?: number;
 }
 
-function BannerItem(
-  { image, lcp }: { image: Banner; lcp?: boolean },
-) {
-  const {
-    alt,
-    mobile,
-    desktop,
-    action,
-  } = image;
-  const params = { promotion_name: image.alt };
-
-  const selectPromotionEvent = useSendEvent({
-    on: "click",
-    event: { name: "select_promotion", params },
-  });
-
-  const viewPromotionEvent = useSendEvent({
-    on: "view",
-    event: { name: "view_promotion", params },
-  });
-
-  return (
-    <a
-      {...selectPromotionEvent}
-      href={action?.href ?? "#"}
-      aria-label={action?.label}
-      class="relative block overflow-y-hidden w-full"
-    >
-      {action && (
-        <div
-          class={clx(
-            "absolute h-full w-full top-0 left-0",
-            "flex flex-col justify-center items-center",
-            "px-5 sm:px-0",
-            "sm:left-40 sm:items-start sm:max-w-96",
-          )}
-        >
-          <span class="text-7xl font-bold text-base-100">
-            {action.title}
-          </span>
-          <span class="font-normal text-base text-base-100 pt-4 pb-12">
-            {action.subTitle}
-          </span>
-          <button
-            class="btn btn-primary btn-outline bg-base-100"
-            aria-label={action.label}
-          >
-            {action.label}
-          </button>
-        </div>
-      )}
-      <Picture preload={lcp} {...viewPromotionEvent}>
-        <Source
-          media="(max-width: 767px)"
-          fetchPriority={lcp ? "high" : "auto"}
-          src={mobile}
-          width={412}
-          height={660}
-        />
-        <Source
-          media="(min-width: 768px)"
-          fetchPriority={lcp ? "high" : "auto"}
-          src={desktop}
-          width={1440}
-          height={600}
-        />
-        <img
-          class="object-cover w-full h-full"
-          loading={lcp ? "eager" : "lazy"}
-          src={desktop}
-          alt={alt}
-        />
-      </Picture>
-    </a>
-  );
-}
-
-function Carousel({ images = [], preload, interval }: Props) {
+function Carousel({ images = [], interval }: Props) {
   const id = useId();
 
   return (
@@ -137,14 +58,15 @@ function Carousel({ images = [], preload, interval }: Props) {
         "w-screen",
       )}
     >
-      <div class="col-span-full row-span-full">
-        <Slider class="carousel carousel-center w-full gap-6">
-          {images.map((image, index) => (
-            <Slider.Item index={index} class="carousel-item w-full">
-              <BannerItem image={image} lcp={index === 0 && preload} />
-            </Slider.Item>
-          ))}
-        </Slider>
+      <div
+        class="col-span-full row-span-full	"
+        style={{
+          overflow: "hidden",
+        }}
+      >
+        <img
+          src={"https://cdn.discordapp.com/attachments/1162519701457490040/1261730972269940837/Carrossel.png?ex=66940609&is=6692b489&hm=23aa7f11005e76dcb265c696db44659db219ebf1ede1c55303dc1c563b00aa40&"}
+        />
       </div>
 
       <div class="hidden sm:flex items-center justify-center z-10 col-start-1 row-start-2">

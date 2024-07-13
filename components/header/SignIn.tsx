@@ -37,8 +37,13 @@ function SignIn({ variant }: { variant: "mobile" | "desktop" }) {
         href="/login"
         aria-label="Login"
       >
-        <Icon id="account_circle" />
-        {variant === "desktop" && <span>Sign in</span>}
+        <Icon
+          id="account_circle"
+          style={{
+            color: "white",
+          }}
+        />
+        {variant === "desktop" && <span className={"text-white"}>Sign in</span>}
       </a>
       <a
         class={clx(
@@ -49,8 +54,15 @@ function SignIn({ variant }: { variant: "mobile" | "desktop" }) {
         href="/account"
         aria-label="Account"
       >
-        <Icon id="account_circle" />
-        {variant === "desktop" && <span>My account</span>}
+        <Icon
+          id="account_circle"
+          style={{
+            color: "white",
+          }}
+        />
+        {variant === "desktop" && (
+          <span className={"text-white"}>My account</span>
+        )}
       </a>
       <script
         type="module"
